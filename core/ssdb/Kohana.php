@@ -103,10 +103,7 @@ class Kohana extends Kohana_Core
                             $clientdata = unserialize($serialized);
                             $created = $clientdata['created'];
                             $lifetime = $clientdata['lifetime'];
-                            $now = date('Y-m-d H:i:s');
-                            $date_now = new DateTime($now);
-                            $date_created = new DateTime($created);
-                            $diff = $date_now->getTimestamp() - $date_created->getTimestamp();
+                            $diff = time() - $created;
                             if ($diff <= $lifetime)
                             {
                                 return $clientdata['data'];
@@ -136,7 +133,7 @@ class Kohana extends Kohana_Core
 		    // Write the cache
                     $serverdata = array(
                             'data'        => $data,
-                            'created'     => date('Y-m-d H:i:s'),
+                            'created'     => time(),
                             'lifetime'    => $lifetime
                             );
                     $client->set($name, serialize($serverdata));
