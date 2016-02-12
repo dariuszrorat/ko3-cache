@@ -32,10 +32,7 @@ class Kohana_Cache_Nosql extends Cache
                 $clientdata = unserialize($serialized);
                 $created = $clientdata['created'];
                 $lifetime = $clientdata['lifetime'];
-                $now = date('Y-m-d H:i:s');
-                $date_now = new DateTime($now);
-                $date_created = new DateTime($created);
-                $diff = $date_now->getTimestamp() - $date_created->getTimestamp();
+                $diff = time() - $created;
                 if ($diff <= $lifetime)
                 {
                     return $clientdata['data'];
@@ -84,7 +81,7 @@ class Kohana_Cache_Nosql extends Cache
             $life_time = ($lifetime !== null) ? $lifetime : Cache::DEFAULT_EXPIRE;
             $serverdata = array(
                 'data' => $data,
-                'created' => date('Y-m-d H:i:s'),
+                'created' => time(),
                 'lifetime' => $life_time
             );
             $this->_client->set($id, serialize($serverdata));
