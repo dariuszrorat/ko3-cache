@@ -91,7 +91,7 @@ class Kohana extends Kohana_Core
 			$lifetime = Kohana::$cache_life;
 		}
 
-                $client = new new SimpleSSDB(Kohana::$ssdb_host, Kohana::$ssdb_port, Kohana::$ssdb_timeout);
+                $client = new SimpleSSDB(Kohana::$ssdb_host, Kohana::$ssdb_port, Kohana::$ssdb_timeout);
 
 
 		if ($data === NULL)

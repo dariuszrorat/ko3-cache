@@ -23,13 +23,13 @@ No need to install Redis PHP extension module.
 The SSDB driver uses SSDB PHP library from ssdb.io
 and must be installed in vendor/SSDB
 
+The MongoDB cache uses MongoClient. Requires php_mongo extension module.
+
 ## Config
 
 cache.php
 
 ```php
-<?php defined('SYSPATH') or die('No direct script access.');
-
 return array
 (
         'redis'   => array(
@@ -46,8 +46,14 @@ return array
                 'timeout'            => 2000,
 		'default_expire'     => 3600,
             ),
-
-
+        'mongo'   => array(
+                'driver'             => 'mongo',
+                'host'               => '127.0.0.1',
+                'port'               => 27017,
+                'database'           => 'kohana',
+                'collection'         => 'caches',
+		'default_expire'     => 3600,
+            ),
 );
 
 ```
