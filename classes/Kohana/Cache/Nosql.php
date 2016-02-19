@@ -16,7 +16,7 @@ class Kohana_Cache_Nosql extends Cache
      *     // Retrieve cache entry from foo group
      *     $data = Cache::instance('foo')->get('foo');
      *
-     *     // Retrieve cache entry from redis group and return 'bar' if miss
+     *     // Retrieve cache entry from group and return 'bar' if miss
      *     $data = Cache::instance('foo')->get('foo', 'bar');
      *
      * @param   string   $id       id of cache to entry
@@ -62,10 +62,10 @@ class Kohana_Cache_Nosql extends Cache
      *
      *     $data = 'bar';
      *
-     *     // Set 'bar' to 'foo' in redis group, using default expiry
+     *     // Set 'bar' to 'foo' in group, using default expiry
      *     Cache::instance('foo')->set('foo', $data);
      *
-     *     // Set 'bar' to 'foo' in redis group for 30 seconds
+     *     // Set 'bar' to 'foo' in  group for 30 seconds
      *     Cache::instance('foo')->set('foo', $data, 30);
      *
      * @param   string   $id        id of cache entry
@@ -104,7 +104,7 @@ class Kohana_Cache_Nosql extends Cache
     /**
      * Delete a cache entry based on id
      *
-     *     // Delete 'foo' entry from the redis group
+     *     // Delete 'foo' entry from the group
      *     Cache::instance('foo')->delete('foo');
      *
      * @param   string   $id  id to remove from cache
@@ -139,7 +139,7 @@ class Kohana_Cache_Nosql extends Cache
      * using shared memory cache systems, as it will wipe every
      * entry within the system for all clients.
      *
-     *     // Delete all cache entries in the redis group
+     *     // Delete all cache entries in the group
      *     Cache::instance('foo')->delete_all();
      *
      * @return  boolean
