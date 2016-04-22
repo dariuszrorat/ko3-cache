@@ -56,7 +56,7 @@ class Kohana_Cache_SSDB extends Cache_Nosql
      */
     protected function __construct(array $config)
     {
-        require_once Kohana::find_file('vendor/SSDB', 'SSDB');
+        include Kohana::find_file('vendor/SSDB', 'SSDB');
         // Setup parent
         parent::__construct($config);
 

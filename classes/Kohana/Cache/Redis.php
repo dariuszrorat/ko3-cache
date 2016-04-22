@@ -56,7 +56,7 @@ class Kohana_Cache_Redis extends Cache_Nosql
      */
     protected function __construct(array $config)
     {
-        require_once Kohana::find_file('vendor/predis', 'autoload');
+        include Kohana::find_file('vendor/predis', 'autoload');
         // Setup parent
         parent::__construct($config);
 

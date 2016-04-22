@@ -114,9 +114,7 @@ class Kohana extends Kohana_Core
                         if (($result = $collection->findOne($where)) !== NULL)
                         {
                             $created = $result['created'];
-                            $lifetime = $result['lifetime'];
-                            $diff = time() - $created;
-                            if ($diff <= $lifetime)
+                            if ((time() - $created) < $lifetime)
                             {
                                 return $result['data'];
                             }
@@ -149,8 +147,7 @@ class Kohana extends Kohana_Core
                         $data = array(
                             'name'   => $name,
                             'data' => $data,
-                            'created'     => $now,
-                            'lifetime'    => $lifetime
+                            'created'     => $now
                         );
                         $collection->insert($data);
                     }

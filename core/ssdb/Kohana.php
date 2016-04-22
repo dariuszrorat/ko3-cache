@@ -83,7 +83,7 @@ class Kohana extends Kohana_Core
 	 */
 	public static function cache($name, $data = NULL, $lifetime = NULL)
 	{
-                require_once Kohana::find_file('vendor/SSDB', 'SSDB');
+                include Kohana::find_file('vendor/SSDB', 'SSDB');
 
 		if ($lifetime === NULL)
 		{
@@ -102,9 +102,8 @@ class Kohana extends Kohana_Core
                         {
                             $clientdata = unserialize($serialized);
                             $created = $clientdata['created'];
-                            $lifetime = $clientdata['lifetime'];
-                            $diff = time() - $created;
-                            if ($diff <= $lifetime)
+
+                            if ((time() - $created) < $lifetime)
                             {
                                 return $clientdata['data'];
                             }
@@ -133,8 +132,7 @@ class Kohana extends Kohana_Core
 		    // Write the cache
                     $serverdata = array(
                             'data'        => $data,
-                            'created'     => time(),
-                            'lifetime'    => $lifetime
+                            'created'     => time()
                             );
                     $client->set($name, serialize($serverdata));
                     return true;
