@@ -1,4 +1,8 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php
+
+defined('SYSPATH') or die('No direct script access.');
+
+include Kohana::find_file('vendor/predis', 'autoload');
 
 class Kohana extends Kohana_Core
 {
@@ -83,7 +87,6 @@ class Kohana extends Kohana_Core
 	 */
 	public static function cache($name, $data = NULL, $lifetime = NULL)
 	{
-                require_once Kohana::find_file('vendor/predis', 'autoload');
 
 		if ($lifetime === NULL)
 		{

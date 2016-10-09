@@ -1,4 +1,8 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php
+
+defined('SYSPATH') or die('No direct script access.');
+
+include Kohana::find_file('vendor/SSDB', 'SSDB');
 
 class Kohana extends Kohana_Core
 {
@@ -83,8 +87,6 @@ class Kohana extends Kohana_Core
 	 */
 	public static function cache($name, $data = NULL, $lifetime = NULL)
 	{
-                include Kohana::find_file('vendor/SSDB', 'SSDB');
-
 		if ($lifetime === NULL)
 		{
 			// Use the default lifetime

@@ -44,6 +44,8 @@ defined('SYSPATH') or die('No direct script access.');
 
  */
 
+include Kohana::find_file('vendor/SSDB', 'SSDB');
+
 class Kohana_Cache_SSDB extends Cache_Nosql
 {
 
@@ -56,7 +58,6 @@ class Kohana_Cache_SSDB extends Cache_Nosql
      */
     protected function __construct(array $config)
     {
-        include Kohana::find_file('vendor/SSDB', 'SSDB');
         // Setup parent
         parent::__construct($config);
 

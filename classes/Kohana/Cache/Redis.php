@@ -44,6 +44,8 @@ defined('SYSPATH') or die('No direct script access.');
 
  */
 
+include Kohana::find_file('vendor/predis', 'autoload');
+
 class Kohana_Cache_Redis extends Cache_Nosql
 {
 
@@ -56,7 +58,6 @@ class Kohana_Cache_Redis extends Cache_Nosql
      */
     protected function __construct(array $config)
     {
-        include Kohana::find_file('vendor/predis', 'autoload');
         // Setup parent
         parent::__construct($config);
 
