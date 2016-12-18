@@ -4,7 +4,12 @@ defined('SYSPATH') or die('No direct script access.');
 
 class Kohana extends Kohana_Core
 {
-     const APC_CACHE_MAX_LIFE = 2592000;
+        /**
+         * Using MAX APC CACHE LIFE to ensure that cache works properly.
+         * WARNING! This const must be greather than kohana cache_life
+         * or lifetime used in get cached values.
+         */
+        const APC_CACHE_MAX_LIFE = 2592000;
 
 	/**
 	 * Provides simple apc-based caching for strings and arrays:
@@ -76,10 +81,13 @@ class Kohana extends Kohana_Core
 		try
 		{
 		    // Write the cache
+                    // Using 'created' key to emulate standard Kohana filemtime
+                    // used on default file caching
                     $apc_data = array(
                             'data'        => $data,
                             'created'     => time()
                             );
+                    // Using MAX_LIFE to ensure that cache works properly
                     apc_store($name, $apc_data, Kohana::APC_CACHE_MAX_LIFE);
                     return true;
 
