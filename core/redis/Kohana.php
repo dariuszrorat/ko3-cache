@@ -111,7 +111,7 @@ class Kohana extends Kohana_Core
                         {
                             $clientdata = unserialize($serialized);
                             $created = $clientdata['created'];
-                            $diff = time() - $created;
+
                             if ((time() - $created) < $lifetime)
                             {
                                 return $clientdata['data'];
