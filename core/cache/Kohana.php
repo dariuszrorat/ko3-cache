@@ -5,14 +5,14 @@ defined('SYSPATH') or die('No direct script access.');
 class Kohana extends Kohana_Core
 {
         /**
-         * Using APC_MAX_CACHE_LIFE to ensure that cache works properly.
+         * Using MAX CACHE LIFE to ensure that cache works properly.
          * WARNING! This const must be greather than kohana cache_life
          * or lifetime used in get cached values.
          */
-        const APC_MAX_CACHE_LIFE = 2592000;
+        const MAX_CACHE_LIFE = 2592000;
 
 	/**
-	 * Provides simple apc-based caching for strings and arrays:
+	 * Provides simple caching for strings and arrays:
 	 *
 	 *     // Set the "foo" cache
 	 *     Kohana::cache('foo', 'hello, world');
@@ -20,7 +20,7 @@ class Kohana extends Kohana_Core
 	 *     // Get the "foo" cache
 	 *     $foo = Kohana::cache('foo');
 	 *
-	 * All caches are stored to APC cache, generated with [var_export][ref-var].
+	 * All caches are stored to cache, generated with [var_export][ref-var].
 	 * Caching objects may not work as expected. Storing references or an
 	 * object or array that has recursion will cause an E_FATAL.
 	 *
@@ -43,16 +43,17 @@ class Kohana extends Kohana_Core
 			$lifetime = Kohana::$cache_life;
 		}
 
+                $cache = Cache::instance();
 
 		if ($data === NULL)
 		{
                     try
                     {
-                        $apc_data = apc_fetch($name, $success);
-                        if ($success)
+                        $cache_data = $cache->get($name);
+                        if ($cache_data)
                         {
-                            $data = $apc_data['data'];
-                            $created = $apc_data['created'];
+                            $data = $cache_data['data'];
+                            $created = $cache_data['created'];
 
                             if ((time() - $created) < $lifetime)
                             {
@@ -60,7 +61,7 @@ class Kohana extends Kohana_Core
                             }
                             else
                             {
-                                apc_delete($name);
+                                $cache->delete($name);
                                 return NULL;
                             }
                         }
@@ -83,12 +84,12 @@ class Kohana extends Kohana_Core
 		    // Write the cache
                     // Using 'created' key to emulate standard Kohana filemtime
                     // used on default file caching
-                    $apc_data = array(
+                    $cache_data = array(
                             'data'        => $data,
                             'created'     => time()
                             );
-                    // Using APC_MAX_CACHE_LIFE to ensure that cache works properly
-                    apc_store($name, $apc_data, Kohana::APC_MAX_CACHE_LIFE);
+                    // Using MAX_CACHE_LIFE to ensure that cache works properly
+                    $cache->set($name, $cache_data, Kohana::MAX_CACHE_LIFE);
                     return true;
 
 		}
